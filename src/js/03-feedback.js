@@ -10,8 +10,19 @@ feedbackForm.addEventListener('input', throttle(onFormInput, 500));
 
 function onFormSubmit(evt) {
     evt.preventDefault();
-    const formData = new FormData(feedbackForm);
-    formData.forEach((value, name) => console.log(name, value));
+    const formElements = evt.target.elements;
+    const email = formElements.email.value;
+    const message = formElements.message.value;
+    const formData = {
+        email,
+        message,
+    };
+    
+    if (email === '' || message === '') {
+        return alert('Необходимо заполнить все поля!');
+    };
+    
+    console.log(formData);
     evt.target.reset();
     localStorage.removeItem(LOCALSTORAGE_KEY);
 }
